@@ -4,12 +4,17 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import generateresponse from "./services/ai.services.js"
 import { response } from "express";
+import cors from "cors"
 dotenv.config({
     path: './.env'
 });
 
 const httpServer = createServer(app);
-const io = new Server(httpServer, { /* options */ });
+const io = new Server(httpServer, { 
+  cors:{
+    origin:"http://localhost:5173",
+  }
+});
 
 io.on("connection", (socket) => {    //Io means whole server but socket means only one user
   console.log("A user connected")
