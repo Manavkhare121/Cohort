@@ -4,10 +4,10 @@ const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
 
-export default async function generateresponse(prompt) {
+export default async function generateresponse(chathistory) {
   const response = await ai.models.generateContent({
     model: "gemini-2.5-flash",
-    contents: prompt,
+    contents: chathistory,
   });
 
   return response.text;

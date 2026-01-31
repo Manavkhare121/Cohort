@@ -17,8 +17,20 @@ io.on("connection", (socket) => {    //Io means whole server but socket means on
     console.log("A User disconnected")
   })
 
+  const chathistory=[
+    
+  ]
   socket.on("ai-message", async (data)=>{
-    const response=await generateresponse(data.prompt)
+    chathistory.push({
+      role:"user",
+      parts:[{text:data}]
+    })
+    const response=await generateresponse(chathistory)
+
+    chathistory.push({
+      role:"model",
+      parts:[{text:data}]
+    })
     console.log("AI Response",response)
     socket.emit("ai-message-response",{response})
   })
